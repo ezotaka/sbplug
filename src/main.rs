@@ -12,6 +12,8 @@ enum Cli {
     Off { device_id: String },
     #[structopt(name = "status")]
     Status { device_id: String },
+    #[structopt(name = "list")]
+    List,
 }
 
 #[tokio::main]
@@ -104,6 +106,29 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
             // Get the response text and parse it as JSON
             let body: serde_json::Value = res.json().await?;
+            // Print the JSON in a pretty format
+            println!("Body: {}", serde_json::to_string_pretty(&body)?);
+        }
+        Cli::List => {
+            // Construct the URL
+            let url = "https://api.switch-bot.com/v1.0/devices";
+
+            // Send the GET request
+            let res = client.get(url).headers(headers.clone()).send().await?;
+
+            println!("Response: {}", res.status());
+
+            // Get the response text and parse it as JSON
+            let mut body: serde_json::Value = res.json().await?;
+
+            if let Some(device_list) = body["body"]["deviceList"].as_array_mut() {
+                device_list.retain(|device| {
+                    device["deviceType"]
+                        .as_str()
+                        .map_or(false, |s| s.contains("Plug"))
+                });
+            }
+
             // Print the JSON in a pretty format
             println!("Body: {}", serde_json::to_string_pretty(&body)?);
         }
