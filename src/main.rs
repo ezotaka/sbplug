@@ -3,15 +3,32 @@ use serde_json::json;
 use std::env;
 use structopt::StructOpt;
 
+/// CLI tool to control SwitchBot Plug
 #[derive(Debug, StructOpt)]
 #[structopt(name = "sbplug")]
 enum Cli {
+    /// Turn the device on
     #[structopt(name = "on")]
-    On { device_id: String },
+    On {
+        /// device ID
+        device_id: String,
+    },
+
+    /// Turn the device off
     #[structopt(name = "off")]
-    Off { device_id: String },
+    Off {
+        /// device ID
+        device_id: String,
+    },
+
+    /// Get status of the device
     #[structopt(name = "status")]
-    Status { device_id: String },
+    Status {
+        /// device ID
+        device_id: String,
+    },
+
+    /// Get list of the devices
     #[structopt(name = "list")]
     List,
 }
