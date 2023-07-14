@@ -1,6 +1,6 @@
 [package]
 name = "sbplug"
-version = "0.0.2"
+version = "0.0.3"
 edition = "2021"
 authors = ["Takatomo Ezo <takatomo@e20.jp>"]
 license = "MIT OR Apache-2.0"
