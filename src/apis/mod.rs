@@ -16,9 +16,9 @@ pub struct Client {
 
 impl Client {
     pub fn new() -> Client {
-        let api_key = match env::var("SWITCHBOT_API_KEY") {
+        let api_key = match env::var("SWITCHBOT_TOKEN") {
             Ok(key) => key,
-            Err(_) => panic!("SWITCHBOT_API_KEY not found."),
+            Err(_) => panic!("SWITCHBOT_TOKEN not found."),
         };
 
         let mut headers = HeaderMap::new();
