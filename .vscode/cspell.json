@@ -5,6 +5,7 @@
     "words": [
         "reqwest",
         "sbplug",
-        "structopt"
+        "structopt",
+        "thiserror"
     ]
 }
